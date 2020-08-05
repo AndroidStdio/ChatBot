@@ -10,10 +10,10 @@ import UIKit
 
 class ChatCell: UITableViewCell {
     
-    var fromLabel: UILabel = {
-        var label = UILabel()
+    var fromLabel: PaddingLabel = {
+        var label = PaddingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
         label.backgroundColor = .blue
         label.clipsToBounds = true
@@ -22,10 +22,10 @@ class ChatCell: UITableViewCell {
         return label
     } ()
     
-    var toLabel: UILabel = {
-        var label = UILabel()
+    var toLabel: PaddingLabel = {
+        var label = PaddingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
         label.backgroundColor = .gray
         label.clipsToBounds = true

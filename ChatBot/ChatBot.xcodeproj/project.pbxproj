@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E91947D724DB3D0800DFFFCC /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E91947D624DB3D0800DFFFCC /* PaddingLabel.swift */; };
 		E9A1D16E24DAC37A00E315B7 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D16D24DAC37A00E315B7 /* ChatMessage.swift */; };
 		E9A1D17124DAC3DF00E315B7 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D17024DAC3DF00E315B7 /* ChatView.swift */; };
 		E9A1D17424DAC5CE00E315B7 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D17324DAC5CE00E315B7 /* ChatViewModel.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E91947D624DB3D0800DFFFCC /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		E9A1D16D24DAC37A00E315B7 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		E9A1D17024DAC3DF00E315B7 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		E9A1D17324DAC5CE00E315B7 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A1D17024DAC3DF00E315B7 /* ChatView.swift */,
+				E91947D624DB3D0800DFFFCC /* PaddingLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				E9A1D17724DAC73F00E315B7 /* ChatCell.swift in Sources */,
 				E9A1D17D24DADED500E315B7 /* NetworkManager.swift in Sources */,
 				E9A1D17424DAC5CE00E315B7 /* ChatViewModel.swift in Sources */,
+				E91947D724DB3D0800DFFFCC /* PaddingLabel.swift in Sources */,
 				E9F690B524DABBB900F7DFB8 /* ChatBot.xcdatamodeld in Sources */,
 				E9A1D16E24DAC37A00E315B7 /* ChatMessage.swift in Sources */,
 				E9F690AB24DABBB900F7DFB8 /* AppDelegate.swift in Sources */,
