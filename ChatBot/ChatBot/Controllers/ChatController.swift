@@ -55,6 +55,10 @@ import UIKit
             present(alertController, animated: true)
         }
     }
+    
+    func rightBarButtonTapped() {
+        
+    }
 }
 
 class ChatController: UIViewController {
@@ -71,10 +75,14 @@ class ChatController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        self.title = "Chatbot"
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         chatView?.sendButton?.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
         
     }
     
