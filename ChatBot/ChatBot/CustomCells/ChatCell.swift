@@ -66,11 +66,15 @@ class ChatCell: UITableViewCell {
         let marginGuide = contentView.layoutMarginsGuide
         
         fromLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5).isActive = true
-       // fromLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         fromLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: 5).isActive = true
-        //fromLabel.heightAnchor.constraint(equalTo: heightAnchor, constant: -5).isActive = true
-        fromLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5).isActive = true
+        let trailingConstraint = fromLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5)
+        trailingConstraint.priority = UILayoutPriority(rawValue: 999)
+        trailingConstraint.isActive = true
         fromLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
+        
+        let widthConstraint = fromLabel.widthAnchor.constraint(equalToConstant: fromLabel.intrinsicContentSize.width)
+        widthConstraint.priority = UILayoutPriority(rawValue: 999)
+        widthConstraint.isActive = true
         
         toLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5).isActive = true
         toLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5).isActive = true
