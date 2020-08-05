@@ -19,7 +19,7 @@ class ChatViewModel {
          http://www.personalityforge.com/api/chat/?apiKey=6nt5d1nJHkqbkphe&message=Hi&chatBotID=63906&externalID=chirag1 */
         
         if let url = buildURL(endpoint: .chat, message: userMessage, chatbotId: "63906", externalID: "Vishwas") {
-            print(url.absoluteString)
+
             let request =  NetworkManager.shared.buildRequest(url: url, endpoint: .chat)
             NetworkManager.shared.get(urlRequest: request, completion: {
                 [weak self] result in
@@ -30,7 +30,7 @@ class ChatViewModel {
                         let uiMessage = ChatMessage()
                         uiMessage.title = chatResponse
                         uiMessage.who = .chatBot
-                        
+                        print(uiMessage.title)
                         strongSelf.messages.append(uiMessage)
                         
                         completion(true)

@@ -34,9 +34,9 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 50
+ //   }
     
     
 }
@@ -111,6 +111,8 @@ class ChatView: UIView {
         chatTableView?.delegate = self
         chatTableView?.register(ChatCell.self, forCellReuseIdentifier: "cell")
         chatTableView?.separatorStyle = .none
+        chatTableView?.estimatedRowHeight = 50.0
+        chatTableView?.rowHeight = UITableView.automaticDimension
     }
     
     private func setupConstraints() {
