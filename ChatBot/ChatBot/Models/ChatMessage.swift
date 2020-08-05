@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Message {
+class ChatMessage {
     var title: String?
     var dateString: String?
     var who: WhoType?
