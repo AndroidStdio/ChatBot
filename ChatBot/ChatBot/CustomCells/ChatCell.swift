@@ -53,21 +53,27 @@ class ChatCell: UITableViewCell {
     }
     
     func setupView() {
-        addSubview(fromLabel)
-        addSubview(toLabel)
+        contentView.addSubview(fromLabel)
+        contentView.addSubview(toLabel)
         
         setupConstraints()
     }
     
     func setupConstraints() {
-        fromLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        fromLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5).isActive = true
-        //fromLabel.heightAnchor.constraint(equalTo: heightAnchor, constant: -5).isActive = true
-        fromLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
         
-        toLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        toLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5).isActive = true
-      //  toLabel.heightAnchor.constraint(equalTo: heightAnchor, constant: -5).isActive = true
+        let marginGuide = contentView.layoutMarginsGuide
+        
+        fromLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5).isActive = true
+       // fromLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        fromLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: 5).isActive = true
+        //fromLabel.heightAnchor.constraint(equalTo: heightAnchor, constant: -5).isActive = true
+        fromLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5).isActive = true
+        fromLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
+        
+        toLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5).isActive = true
+        toLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5).isActive = true
+        toLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
+      
         
         
     }
