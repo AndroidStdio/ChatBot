@@ -8,6 +8,22 @@
 
 import UIKit
 
+@objc extension ChatController {
+    func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+
+    func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+}
+
 class ChatController: UIViewController {
     
     var chatView: ChatView?
@@ -22,27 +38,8 @@ class ChatController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        let m1 = Message()
-        m1.title = "Hi, whats up man ? "
-        m1.who = .me
-        
-        let m2 = Message()
-        m2.title = "Who is this?"
-        m2.who = .chatBot
-        
-        let m3 = Message()
-        m3.title = "This is the Po Po"
-        m3.who = .me
-        
-        let m4 = Message()
-        m4.title = "New phone"
-        m4.who = .chatBot
-        
-        
-        viewModel?.messages.append(m1)
-        viewModel?.messages.append(m2)
-        viewModel?.messages.append(m3)
-        viewModel?.messages.append(m4)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -52,7 +49,5 @@ class ChatController: UIViewController {
             chatView = ChatView(viewModel: viewModel)
         }
     }
-    
-    
 }
 

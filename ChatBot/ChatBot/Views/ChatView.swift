@@ -81,12 +81,17 @@ class ChatView: UIView {
         if let chatTableView = chatTableView, let bottomView = bottomView, let chatTextfield = chatTextfield, let sendButton = sendButton {
             addSubviews(views: chatTableView, bottomView, chatTextfield, sendButton)
         }
-        
+        setupBottomView()
         setupTextField()
         setupButton()
         setupTableView()
         
         setupConstraints()
+    }
+    
+    private func setupBottomView() {
+        bottomView?.layer.borderColor = UIColor.black.cgColor
+        bottomView?.layer.borderWidth = 1
     }
     
     private func setupTextField() {
