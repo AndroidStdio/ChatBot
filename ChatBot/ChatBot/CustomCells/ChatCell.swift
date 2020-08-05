@@ -18,6 +18,7 @@ class ChatCell: UITableViewCell {
         label.backgroundColor = .blue
         label.clipsToBounds = true
         label.numberOfLines = 0
+        label.textColor = .white
         
         return label
     } ()
@@ -30,6 +31,7 @@ class ChatCell: UITableViewCell {
         label.backgroundColor = .gray
         label.clipsToBounds = true
         label.numberOfLines = 0
+        label.textColor = .white
 
         return label
     } ()
