@@ -21,6 +21,39 @@ import UIKit
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+        
+        DispatchQueue.main.async {
+            self.chatView?.chatTableView?.reloadData()
+        }
+    }
+    
+    func buttonTapped() {
+        
+        if let userText = chatView?.chatTextfield?.text, !(userText.isEmpty) {
+            chatView?.chatTableView?.reloadData()
+            chatView?.chatTextfield?.resignFirstResponder()
+            chatView?.chatTextfield?.text = ""
+            let userMessage = ChatMessage()
+            userMessage.title = userText
+            userMessage.who = .me
+            viewModel?.messages.append(userMessage)
+            
+            viewModel?.performChatOperation(userMessage: userText, completion: {
+              [weak self]  result in
+                if result {
+                    if let strongSelf = self {
+                        DispatchQueue.main.async {
+                            strongSelf.chatView?.chatTableView?.reloadData()
+                        }
+                    }
+                }
+            })
+        } else {
+            // alert here
+            let alertController = UIAlertController(title: Constants.emptyFieldTitle, message: Constants.emptyFieldMessage, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            present(alertController, animated: true)
+        }
     }
 }
 
@@ -41,6 +74,8 @@ class ChatController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        chatView?.sendButton?.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
     }
     
     func initChatView() {
@@ -48,6 +83,7 @@ class ChatController: UIViewController {
         if let viewModel = viewModel {
             chatView = ChatView(viewModel: viewModel)
         }
+        
     }
 }
 
