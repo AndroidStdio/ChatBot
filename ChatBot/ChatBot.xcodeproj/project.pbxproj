@@ -17,6 +17,9 @@
 		E9A1D18324DAE1C900E315B7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18224DAE1C900E315B7 /* Constants.swift */; };
 		E9A1D18524DAE39E00E315B7 /* ApiKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18424DAE39E00E315B7 /* ApiKey.swift */; };
 		E9A1D18724DAEC8000E315B7 /* ChatResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18624DAEC8000E315B7 /* ChatResponse.swift */; };
+		E9A1D18A24DB1B8300E315B7 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18924DB1B8300E315B7 /* CoreDataManager.swift */; };
+		E9A1D18C24DB1BE900E315B7 /* CoreDataSaveOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18B24DB1BE900E315B7 /* CoreDataSaveOps.swift */; };
+		E9A1D18E24DB1BF200E315B7 /* CoreDataGetOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18D24DB1BF200E315B7 /* CoreDataGetOps.swift */; };
 		E9F690AB24DABBB900F7DFB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F690AA24DABBB900F7DFB8 /* AppDelegate.swift */; };
 		E9F690AD24DABBB900F7DFB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F690AC24DABBB900F7DFB8 /* SceneDelegate.swift */; };
 		E9F690AF24DABBB900F7DFB8 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F690AE24DABBB900F7DFB8 /* ChatController.swift */; };
@@ -47,6 +50,9 @@
 		E9A1D18224DAE1C900E315B7 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E9A1D18424DAE39E00E315B7 /* ApiKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiKey.swift; sourceTree = "<group>"; };
 		E9A1D18624DAEC8000E315B7 /* ChatResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatResponse.swift; sourceTree = "<group>"; };
+		E9A1D18924DB1B8300E315B7 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		E9A1D18B24DB1BE900E315B7 /* CoreDataSaveOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSaveOps.swift; sourceTree = "<group>"; };
+		E9A1D18D24DB1BF200E315B7 /* CoreDataGetOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGetOps.swift; sourceTree = "<group>"; };
 		E9F690A724DABBB900F7DFB8 /* ChatBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F690AA24DABBB900F7DFB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F690AC24DABBB900F7DFB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +158,16 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
+		E9A1D18824DB1B5E00E315B7 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				E9A1D18D24DB1BF200E315B7 /* CoreDataGetOps.swift */,
+				E9A1D18B24DB1BE900E315B7 /* CoreDataSaveOps.swift */,
+				E9A1D18924DB1B8300E315B7 /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		E9F6909E24DABBB900F7DFB8 = {
 			isa = PBXGroup;
 			children = (
@@ -173,6 +189,7 @@
 		E9F690A924DABBB900F7DFB8 /* ChatBot */ = {
 			isa = PBXGroup;
 			children = (
+				E9A1D18824DB1B5E00E315B7 /* CoreData */,
 				E9A1D18124DAE1B500E315B7 /* Constants */,
 				E9A1D17E24DADF5C00E315B7 /* Enums */,
 				E9A1D17B24DADE9900E315B7 /* Managers */,
@@ -304,6 +321,8 @@
 				E9A1D18724DAEC8000E315B7 /* ChatResponse.swift in Sources */,
 				E9F690AF24DABBB900F7DFB8 /* ChatController.swift in Sources */,
 				E9A1D18524DAE39E00E315B7 /* ApiKey.swift in Sources */,
+				E9A1D18A24DB1B8300E315B7 /* CoreDataManager.swift in Sources */,
+				E9A1D18C24DB1BE900E315B7 /* CoreDataSaveOps.swift in Sources */,
 				E9A1D17724DAC73F00E315B7 /* ChatCell.swift in Sources */,
 				E9A1D17D24DADED500E315B7 /* NetworkManager.swift in Sources */,
 				E9A1D17424DAC5CE00E315B7 /* ChatViewModel.swift in Sources */,
@@ -312,6 +331,7 @@
 				E9F690AB24DABBB900F7DFB8 /* AppDelegate.swift in Sources */,
 				E9A1D17124DAC3DF00E315B7 /* ChatView.swift in Sources */,
 				E9A1D17A24DAC9B500E315B7 /* UIView.swift in Sources */,
+				E9A1D18E24DB1BF200E315B7 /* CoreDataGetOps.swift in Sources */,
 				E9F690AD24DABBB900F7DFB8 /* SceneDelegate.swift in Sources */,
 				E9A1D18024DADF6F00E315B7 /* Enums.swift in Sources */,
 				E9A1D18324DAE1C900E315B7 /* Constants.swift in Sources */,

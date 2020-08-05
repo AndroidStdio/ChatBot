@@ -38,6 +38,8 @@ import UIKit
             userMessage.who = .me
             viewModel?.messages.append(userMessage)
             
+            CoreDataSaveOps.shared.saveMessage(message: userMessage, dateTimeStamp: Date(), who: true)
+            
             viewModel?.performChatOperation(userMessage: userText, completion: {
               [weak self]  result in
                 if result {
