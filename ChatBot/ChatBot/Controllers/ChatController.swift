@@ -21,11 +21,16 @@ import UIKit
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
         }
+        
+        DispatchQueue.main.async {
+            self.chatView?.chatTableView?.reloadData()
+        }
     }
     
     func buttonTapped() {
         
         if let userText = chatView?.chatTextfield?.text, !(userText.isEmpty) {
+            chatView?.chatTableView?.reloadData()
             chatView?.chatTextfield?.resignFirstResponder()
             chatView?.chatTextfield?.text = ""
             let userMessage = ChatMessage()
