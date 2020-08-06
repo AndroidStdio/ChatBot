@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="false" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19G73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="ChatList" representedClassName="ChatList" syncable="YES" codeGenerationType="class">
+        <attribute name="chatId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+    </entity>
+    <entity name="MessageRecord" representedClassName="MessageRecord" syncable="YES" codeGenerationType="class">
+        <attribute name="chatId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="me" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="messageText" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="MessageRecord" positionX="-63" positionY="-18" width="128" height="103"/>
+        <element name="ChatList" positionX="-63" positionY="9" width="128" height="58"/>
+    </elements>
 </model>

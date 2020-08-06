@@ -38,6 +38,8 @@ import UIKit
             userMessage.who = .me
             viewModel?.messages.append(userMessage)
             
+            CoreDataSaveOps.shared.saveMessage(message: userMessage, dateTimeStamp: Date(), who: true)
+            
             viewModel?.performChatOperation(userMessage: userText, completion: {
               [weak self]  result in
                 if result {
@@ -55,6 +57,10 @@ import UIKit
             present(alertController, animated: true)
         }
     }
+    
+    func rightBarButtonTapped() {
+        navigationController?.pushViewController(ChatSelectionController(), animated: true)
+    }
 }
 
 class ChatController: UIViewController {
@@ -70,14 +76,34 @@ class ChatController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+    
+        handleNewChat()
+        
+        if CoreDataGetOps.shared.fetchChatList().isEmpty {
+            CoreDataSaveOps.shared.saveChatToList(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
+        }
+        
+        
+        self.title = "Chatbot"
+        
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.backgroundColor = .black
         navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         chatView?.sendButton?.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(rightBarButtonTapped))
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        handleNewChat()
+        chatView?.chatTableView?.reloadData()
     }
     
     func initChatView() {
@@ -86,6 +112,23 @@ class ChatController: UIViewController {
             chatView = ChatView(viewModel: viewModel)
         }
         
+    }
+    
+    func setStatusBarBackgroundColor(color: UIColor) {
+        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
+        statusBar.backgroundColor = color
+    }
+    
+    func handleNewChat() {
+        if CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey)).isEmpty {
+            let chatMessage = ChatMessage()
+            chatMessage.title = Constants.defaultConversationStarter
+            chatMessage.who = .chatBot
+            
+            CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: false)
+            
+            chatView?.chatTableView?.reloadData()
+        }
     }
 }
 

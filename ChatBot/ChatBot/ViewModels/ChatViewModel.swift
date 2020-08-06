@@ -13,6 +13,10 @@ import os.log
 class ChatViewModel {
     var messages = [ChatMessage]()
     
+    func getAllMessages() -> [MessageRecord] {
+        return CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
+    }
+    
     
     func performChatOperation(userMessage: String, completion: @escaping (Bool) -> ()) {
         /*
@@ -30,8 +34,10 @@ class ChatViewModel {
                         let uiMessage = ChatMessage()
                         uiMessage.title = chatResponse
                         uiMessage.who = .chatBot
-                        print(uiMessage.title)
+                        
                         strongSelf.messages.append(uiMessage)
+                        
+                        CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false)
                         
                         completion(true)
                         

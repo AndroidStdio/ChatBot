@@ -11,34 +11,33 @@ import os.log
 
 extension ChatView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.messages.count ?? 0
+        return viewModel?.getAllMessages().count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ChatCell else { return UITableViewCell() }
         
-        switch viewModel?.messages[indexPath.row].who {
-        case .me :
+        let cell = ChatCell()
+        let messages = viewModel?.getAllMessages()
+        
+        switch messages?[indexPath.row].me {
+        case true :
             cell.fromLabel.isHidden = true
             cell.toLabel.isHidden = false
-            cell.toLabel.text = viewModel?.messages[indexPath.row].title
+            cell.toLabel.text = messages?[indexPath.row].messageText
             
-        case .chatBot :
+        case false :
             cell.fromLabel.isHidden = false
             cell.toLabel.isHidden = true
-            cell.fromLabel.text = viewModel?.messages[indexPath.row].title
+            cell.fromLabel.text = messages?[indexPath.row].messageText
             
         case .none:
+            fallthrough
+        case .some(_):
             os_log("Unreacable enum case reached in ChatView, check the enum")
         }
+        cell.selectionStyle = .none
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 50
- //   }
-    
-    
 }
 
 class ChatView: UIView {
@@ -49,6 +48,7 @@ class ChatView: UIView {
     var bottomView: UIView?
     var chatTextfield: UITextField?
     var sendButton: UIButton?
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
