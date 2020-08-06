@@ -10,27 +10,29 @@ import UIKit
 
 class ChatCell: UITableViewCell {
     
-    var fromLabel: UILabel = {
-        var label = UILabel()
+    var fromLabel: PaddingLabel = {
+        var label = PaddingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
-        label.backgroundColor = .blue
+        label.backgroundColor = .wetAsphalt
         label.clipsToBounds = true
         label.numberOfLines = 0
+        label.textColor = .white
         
         return label
     } ()
     
-    var toLabel: UILabel = {
-        var label = UILabel()
+    var toLabel: PaddingLabel = {
+        var label = PaddingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 10
+        label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
-        label.backgroundColor = .gray
+        label.backgroundColor = .concrete
         label.clipsToBounds = true
         label.numberOfLines = 0
-
+        label.textColor = .black
+        
         return label
     } ()
     
@@ -53,6 +55,7 @@ class ChatCell: UITableViewCell {
     }
     
     func setupView() {
+        backgroundColor = .cityLights
         contentView.addSubview(fromLabel)
         contentView.addSubview(toLabel)
         
@@ -63,18 +66,28 @@ class ChatCell: UITableViewCell {
         
         let marginGuide = contentView.layoutMarginsGuide
         
-        fromLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5).isActive = true
-       // fromLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        fromLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: 5).isActive = true
-        //fromLabel.heightAnchor.constraint(equalTo: heightAnchor, constant: -5).isActive = true
-        fromLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5).isActive = true
-        fromLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
+        NSLayoutConstraint.activate([
+            fromLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5),
+            fromLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: 5),
+            fromLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0),
+            toLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5),
+            toLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5),
+            toLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0)
+        ])
         
-        toLabel.topAnchor.constraint(equalTo: marginGuide.topAnchor, constant: 5).isActive = true
-        toLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5).isActive = true
-        toLabel.bottomAnchor.constraint(equalTo: marginGuide.bottomAnchor, constant: 0).isActive = true
-      
+        let fromTrailingConstraint = fromLabel.trailingAnchor.constraint(equalTo: marginGuide.trailingAnchor, constant: -5)
+        let fromWidthConstraint = fromLabel.widthAnchor.constraint(equalToConstant: fromLabel.intrinsicContentSize.width)
+        let toLeadingConstraint = toLabel.leadingAnchor.constraint(equalTo: marginGuide.leadingAnchor, constant: 5)
+        let toWidthConstraint = toLabel.widthAnchor.constraint(equalToConstant: toLabel.intrinsicContentSize.width)
         
+        fromTrailingConstraint.priority = UILayoutPriority(rawValue: 999)
+        fromWidthConstraint.priority = UILayoutPriority(rawValue: 999)
+        toLeadingConstraint.priority = UILayoutPriority(rawValue: 999)
+        toWidthConstraint.priority = UILayoutPriority(rawValue: 999)
         
+        fromTrailingConstraint.isActive = true
+        fromWidthConstraint.isActive = true
+        toWidthConstraint.isActive = true
+        toLeadingConstraint.isActive = true
     }
 }
