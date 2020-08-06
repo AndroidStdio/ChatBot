@@ -78,15 +78,22 @@ class ChatController: UIViewController {
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
     
-        if CoreDataGetOps.shared.getAllMessages().isEmpty {
+        if CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey)).isEmpty {
             let chatMessage = ChatMessage()
             chatMessage.title = Constants.defaultConversationStarter
             chatMessage.who = .chatBot
             
             CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: false)
             
+            
+            
             chatView?.chatTableView?.reloadData()
         }
+        
+        if CoreDataGetOps.shared.fetchChatList().isEmpty {
+            CoreDataSaveOps.shared.saveChatToList(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
+        }
+        
         
         self.title = "Chatbot"
         
@@ -100,8 +107,12 @@ class ChatController: UIViewController {
         
         chatView?.sendButton?.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(rightBarButtonTapped))
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        chatView?.chatTableView?.reloadData()
     }
     
     func initChatView() {

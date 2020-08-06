@@ -19,4 +19,5 @@ struct Constants {
     static let emptyFieldTitle = " Warning"
     static let emptyFieldMessage = "The textfield cannot be empty"
     static let defaultConversationStarter = "Hello, How can I help you ?"
+    static let chatIdKey = "chatIdKey"
 }

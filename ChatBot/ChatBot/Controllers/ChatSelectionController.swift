@@ -8,21 +8,34 @@
 
 import UIKit
 
+@objc extension ChatSelectionController {
+    func rightBarButtonTapped() {
+        let numberOfChats = CoreDataGetOps.shared.fetchChatList().count - 1
+        CoreDataSaveOps.shared.saveChatToList(chatId: numberOfChats + 1)
+        navigationController?.popViewController(animated: true)
+        
+    }
+}
+
 class ChatSelectionController: UIViewController {
     
     var selectionView: ChatSelectionView?
     
     override func loadView() {
         selectionView = ChatSelectionView()
+        selectionView?.viewController = self
         if let selectionView = selectionView {
             view = selectionView
         }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(rightBarButtonTapped))
     }
     
 

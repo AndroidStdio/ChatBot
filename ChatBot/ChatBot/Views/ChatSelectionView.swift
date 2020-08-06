@@ -10,19 +10,33 @@ import UIKit
 
 extension ChatSelectionView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return CoreDataGetOps.shared.fetchChatList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: UITableViewCell.CellStyle.subtitle, reuseIdentifier: "cell")
-        cell.textLabel?.text = "Chat Id : 1"
-        cell.detailTextLabel?.text = "Blah blah"
-        cell.accessoryType = .checkmark
+        
+        let chatList = CoreDataGetOps.shared.fetchChatList()
+        let chatId = chatList[indexPath.row].chatId
+        
+        if indexPath.row == UserDefaults.standard.integer(forKey: Constants.chatIdKey) {
+            cell.accessoryType = .checkmark
+        }
+        cell.textLabel?.text = "Id : \(chatId)"
+        cell.detailTextLabel?.text = CoreDataGetOps.shared.getLastMessage(for: Int(chatId))
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.set(indexPath.row, forKey: Constants.chatIdKey)
+        if let controller = viewController {
+            controller.navigationController?.popViewController(animated: true)
+        }
     }
     
     
@@ -39,6 +53,7 @@ class ChatSelectionView: UIView {
     */
     
     var selectionTableView = UITableView()
+    weak var viewController: ChatSelectionController?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
