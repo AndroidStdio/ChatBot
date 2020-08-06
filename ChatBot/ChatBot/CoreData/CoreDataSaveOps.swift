@@ -35,7 +35,6 @@ class CoreDataSaveOps {
         chatManagedObject.chatId = Int32(chatId)
         
         coreDataManager.saveContext(context: context)
-        
     }
     
     func saveOfflineMessage(message: String, chatId: Int) {

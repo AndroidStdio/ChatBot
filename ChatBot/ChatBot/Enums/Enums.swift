@@ -18,6 +18,7 @@ enum HttpMethod: String {
     case put = "PUT"
 }
 
-enum ErrorTypes {
-    case serverNotResponding
+enum WhoType {
+    case me
+    case chatBot
 }

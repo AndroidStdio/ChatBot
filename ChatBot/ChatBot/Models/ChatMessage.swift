@@ -13,8 +13,3 @@ class ChatMessage {
     var dateString: String?
     var who: WhoType?
 }
-
-enum WhoType {
-    case me
-    case chatBot
-}

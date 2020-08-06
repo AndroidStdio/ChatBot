@@ -43,16 +43,13 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
 class ChatView: UIView {
     
     var viewModel: ChatViewModel?
-    
     var chatTableView: UITableView?
     var bottomView: UIView?
     var chatTextfield: UITextField?
     var sendButton: UIButton?
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -85,7 +82,6 @@ class ChatView: UIView {
         setupTextField()
         setupButton()
         setupTableView()
-        
         setupConstraints()
     }
     
@@ -141,7 +137,6 @@ class ChatView: UIView {
                 sendButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -3),
                 sendButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
                 sendButton.widthAnchor.constraint(equalToConstant: 100),
-                
             ])
         }
     }

@@ -9,7 +9,6 @@
 import Foundation
 
 class ChatResponse: Decodable {
-    /*"success":1,"errorMessage":"","message":{"chatBotName":"Cyber Ty","chatBotID":63906,"message":"You're sending the same message over and over.","emotion":"normal"},"data":[]}*/
     var success: Int
     var errorMessage: String
     var message: Message
@@ -20,5 +19,4 @@ class Message: Decodable {
     var chatBotID: Int
     var message: String
     var emotion: String
-  //  var data: Data
 }

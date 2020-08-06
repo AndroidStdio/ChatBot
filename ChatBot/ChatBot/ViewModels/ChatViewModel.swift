@@ -17,13 +17,10 @@ class ChatViewModel {
         return CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
     }
     
-    
     func performChatOperation(userMessage: String, chatId: Int? = nil, completion: @escaping (Bool) -> ()) {
-        /*
-         http://www.personalityforge.com/api/chat/?apiKey=6nt5d1nJHkqbkphe&message=Hi&chatBotID=63906&externalID=chirag1 */
         
-        if let url = buildURL(endpoint: .chat, message: userMessage, chatbotId: "63906", externalID: "Vishwas") {
-
+        if let url = buildURL(endpoint: .chat, message: userMessage, chatbotId: "63906", externalID: "userName") {
+            
             let request =  NetworkManager.shared.buildRequest(url: url, endpoint: .chat)
             NetworkManager.shared.get(urlRequest: request, completion: {
                 [weak self] result in
@@ -38,15 +35,12 @@ class ChatViewModel {
                         strongSelf.messages.append(uiMessage)
                         
                         if let chatId = chatId {
-                             CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false, chatId: chatId)
+                            CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false, chatId: chatId)
                         } else {
                             CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false)
                         }
-                        
-                       
-                        
+            
                         completion(true)
-                        
                     }
                 case .failure(let error):
                     if let strongSelf = self {
@@ -82,14 +76,12 @@ class ChatViewModel {
     
     func parseChatResponse(data: Data) -> String {
         let jsonDecoder = JSONDecoder()
-        
         var chatResponse: ChatResponse?
         
         do {
             chatResponse = try jsonDecoder.decode(ChatResponse.self, from: data)
         } catch {
-            print(error, error.localizedDescription)
-            os_log("Error with parsing choices")
+            os_log("Error with parsing chat responses")
         }
         
         return chatResponse?.message.message ?? Constants.fallbackResponse
