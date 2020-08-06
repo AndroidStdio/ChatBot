@@ -15,7 +15,9 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ChatCell else { return UITableViewCell() }
+     //   guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ChatCell else { return UITableViewCell() }
+        
+        let cell = ChatCell()
         
         let messages = viewModel?.getAllMessages()
         

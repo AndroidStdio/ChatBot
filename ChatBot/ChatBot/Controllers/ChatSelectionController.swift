@@ -12,8 +12,8 @@ import UIKit
     func rightBarButtonTapped() {
         let numberOfChats = CoreDataGetOps.shared.fetchChatList().count - 1
         CoreDataSaveOps.shared.saveChatToList(chatId: numberOfChats + 1)
+        UserDefaults.standard.set(numberOfChats + 1, forKey: Constants.chatIdKey)
         navigationController?.popViewController(animated: true)
-        
     }
 }
 

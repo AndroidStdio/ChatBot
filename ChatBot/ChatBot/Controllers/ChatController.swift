@@ -78,17 +78,7 @@ class ChatController: UIViewController {
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
     
-        if CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey)).isEmpty {
-            let chatMessage = ChatMessage()
-            chatMessage.title = Constants.defaultConversationStarter
-            chatMessage.who = .chatBot
-            
-            CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: false)
-            
-            
-            
-            chatView?.chatTableView?.reloadData()
-        }
+        handleNewChat()
         
         if CoreDataGetOps.shared.fetchChatList().isEmpty {
             CoreDataSaveOps.shared.saveChatToList(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
@@ -112,6 +102,7 @@ class ChatController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        handleNewChat()
         chatView?.chatTableView?.reloadData()
     }
     
@@ -126,6 +117,18 @@ class ChatController: UIViewController {
     func setStatusBarBackgroundColor(color: UIColor) {
         guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
         statusBar.backgroundColor = color
+    }
+    
+    func handleNewChat() {
+        if CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey)).isEmpty {
+            let chatMessage = ChatMessage()
+            chatMessage.title = Constants.defaultConversationStarter
+            chatMessage.who = .chatBot
+            
+            CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: false)
+            
+            chatView?.chatTableView?.reloadData()
+        }
     }
 }
 
