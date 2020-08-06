@@ -94,8 +94,6 @@ class ChatController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Reachability.isConnectedToNetwork()
-        
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
@@ -125,8 +123,6 @@ class ChatController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         handleNewChat()
         
-        print(CoreDataGetOps.shared.getSavedMessages())
-        
         uploadChatIfBackOnline()
         chatView?.chatTableView?.reloadData()
     }
@@ -136,7 +132,6 @@ class ChatController: UIViewController {
         if let viewModel = viewModel {
             chatView = ChatView(viewModel: viewModel)
         }
-        
     }
     
     func setStatusBarBackgroundColor(color: UIColor) {
