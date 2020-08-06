@@ -72,7 +72,9 @@ class ChatController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+        navigationController?.navigationBar.barTintColor = .black
+        navigationController?.navigationBar.backgroundColor = .black
+        navigationController?.navigationBar.barStyle = .black
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         

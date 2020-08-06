@@ -35,6 +35,7 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
         case .some(_):
             os_log("Unreacable enum case reached in ChatView, check the enum")
         }
+        cell.selectionStyle = .none
         return cell
     }
     
@@ -71,7 +72,7 @@ class ChatView: UIView {
     }
     
     private func setupView() {
-        backgroundColor = .white
+        backgroundColor = .cityLights
         
         chatTableView = UITableView()
         bottomView = UIView()
@@ -97,18 +98,20 @@ class ChatView: UIView {
     private func setupBottomView() {
         bottomView?.layer.borderColor = UIColor.black.cgColor
         bottomView?.layer.borderWidth = 1
+        bottomView?.backgroundColor = .black
     }
     
     private func setupTextField() {
         chatTextfield?.placeholder = "Type here..."
         chatTextfield?.layer.borderWidth = 0.3
-        chatTextfield?.layer.borderColor = UIColor.black.cgColor
+        chatTextfield?.layer.borderColor = UIColor.white.cgColor
         chatTextfield?.layer.cornerRadius = 5
+        chatTextfield?.backgroundColor = .white
     }
     
     private func setupButton() {
         sendButton?.setTitle("Send", for: .normal)
-        sendButton?.setTitleColor(.black, for: .normal)
+        sendButton?.setTitleColor(.white, for: .normal)
     }
     
     private func setupTableView() {
@@ -118,6 +121,8 @@ class ChatView: UIView {
         chatTableView?.separatorStyle = .none
         chatTableView?.estimatedRowHeight = 50.0
         chatTableView?.rowHeight = UITableView.automaticDimension
+        chatTableView?.backgroundColor = .cityLights
+        
     }
     
     private func setupConstraints() {
@@ -130,14 +135,14 @@ class ChatView: UIView {
                 chatTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: 5),
                 chatTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -5),
                 
-                bottomView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-                bottomView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-                bottomView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 0),
+                bottomView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+                bottomView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+                bottomView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: 10),
                 bottomView.topAnchor.constraint(equalTo: chatTableView.bottomAnchor, constant: 5),
                 
                 chatTextfield.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
-                chatTextfield.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 3),
-                chatTextfield.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: 3),
+                chatTextfield.leadingAnchor.constraint(equalTo: bottomView.leadingAnchor, constant: 10),
+                chatTextfield.trailingAnchor.constraint(equalTo: sendButton.leadingAnchor, constant: 5),
                 
                 sendButton.trailingAnchor.constraint(equalTo: bottomView.trailingAnchor, constant: -3),
                 sendButton.centerYAnchor.constraint(equalTo: bottomView.centerYAnchor),
