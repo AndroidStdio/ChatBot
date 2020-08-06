@@ -31,6 +31,7 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
         case .none:
             os_log("Unreacable enum case reached in ChatView, check the enum")
         }
+        cell.selectionStyle = .none
         return cell
     }
     
