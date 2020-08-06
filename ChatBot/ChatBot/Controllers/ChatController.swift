@@ -59,7 +59,7 @@ import UIKit
     }
     
     func rightBarButtonTapped() {
-        
+        navigationController?.pushViewController(ChatSelectionController(), animated: true)
     }
 }
 
@@ -76,12 +76,25 @@ class ChatController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+    
+        if CoreDataGetOps.shared.getAllMessages().isEmpty {
+            let chatMessage = ChatMessage()
+            chatMessage.title = Constants.defaultConversationStarter
+            chatMessage.who = .chatBot
+            
+            CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: false)
+            
+            chatView?.chatTableView?.reloadData()
+        }
         
         self.title = "Chatbot"
         
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.backgroundColor = .black
         navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
@@ -97,6 +110,11 @@ class ChatController: UIViewController {
             chatView = ChatView(viewModel: viewModel)
         }
         
+    }
+    
+    func setStatusBarBackgroundColor(color: UIColor) {
+        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
+        statusBar.backgroundColor = color
     }
 }
 
