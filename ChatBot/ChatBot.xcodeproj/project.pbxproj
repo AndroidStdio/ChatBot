@@ -25,6 +25,8 @@
 		E9A1D18A24DB1B8300E315B7 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18924DB1B8300E315B7 /* CoreDataManager.swift */; };
 		E9A1D18C24DB1BE900E315B7 /* CoreDataSaveOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18B24DB1BE900E315B7 /* CoreDataSaveOps.swift */; };
 		E9A1D18E24DB1BF200E315B7 /* CoreDataGetOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A1D18D24DB1BF200E315B7 /* CoreDataGetOps.swift */; };
+		E9E83E0724DC1211004425DE /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E0624DC1211004425DE /* Reachability.swift */; };
+		E9E83E0924DC2457004425DE /* CoreDataDeleteOps.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E83E0824DC2457004425DE /* CoreDataDeleteOps.swift */; };
 		E9F690AB24DABBB900F7DFB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F690AA24DABBB900F7DFB8 /* AppDelegate.swift */; };
 		E9F690AD24DABBB900F7DFB8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F690AC24DABBB900F7DFB8 /* SceneDelegate.swift */; };
 		E9F690AF24DABBB900F7DFB8 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F690AE24DABBB900F7DFB8 /* ChatController.swift */; };
@@ -63,6 +65,8 @@
 		E9A1D18924DB1B8300E315B7 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		E9A1D18B24DB1BE900E315B7 /* CoreDataSaveOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataSaveOps.swift; sourceTree = "<group>"; };
 		E9A1D18D24DB1BF200E315B7 /* CoreDataGetOps.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataGetOps.swift; sourceTree = "<group>"; };
+		E9E83E0624DC1211004425DE /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		E9E83E0824DC2457004425DE /* CoreDataDeleteOps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDeleteOps.swift; sourceTree = "<group>"; };
 		E9F690A724DABBB900F7DFB8 /* ChatBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9F690AA24DABBB900F7DFB8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9F690AC24DABBB900F7DFB8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				E9A1D17C24DADED500E315B7 /* NetworkManager.swift */,
+				E9E83E0624DC1211004425DE /* Reachability.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 				E9A1D18D24DB1BF200E315B7 /* CoreDataGetOps.swift */,
 				E9A1D18B24DB1BE900E315B7 /* CoreDataSaveOps.swift */,
 				E9A1D18924DB1B8300E315B7 /* CoreDataManager.swift */,
+				E9E83E0824DC2457004425DE /* CoreDataDeleteOps.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -348,8 +354,10 @@
 				E9F690B524DABBB900F7DFB8 /* ChatBot.xcdatamodeld in Sources */,
 				E9A1D16E24DAC37A00E315B7 /* ChatMessage.swift in Sources */,
 				E9F690AB24DABBB900F7DFB8 /* AppDelegate.swift in Sources */,
+				E9E83E0724DC1211004425DE /* Reachability.swift in Sources */,
 				E9A1D17124DAC3DF00E315B7 /* ChatView.swift in Sources */,
 				E91947DB24DBCC8000DFFFCC /* ChatSelectionController.swift in Sources */,
+				E9E83E0924DC2457004425DE /* CoreDataDeleteOps.swift in Sources */,
 				E9A1D17A24DAC9B500E315B7 /* UIView.swift in Sources */,
 				E9A1D18E24DB1BF200E315B7 /* CoreDataGetOps.swift in Sources */,
 				E9F690AD24DABBB900F7DFB8 /* SceneDelegate.swift in Sources */,
