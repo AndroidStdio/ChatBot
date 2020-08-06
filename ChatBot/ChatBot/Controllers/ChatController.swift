@@ -94,7 +94,6 @@ class ChatController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         
         handleNewChat()
@@ -102,7 +101,6 @@ class ChatController: UIViewController {
         if CoreDataGetOps.shared.fetchChatList().isEmpty {
             CoreDataSaveOps.shared.saveChatToList(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
         }
-        
         
         self.title = "Chatbot"
         
@@ -117,7 +115,6 @@ class ChatController: UIViewController {
         chatView?.sendButton?.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(rightBarButtonTapped))
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -132,11 +129,6 @@ class ChatController: UIViewController {
         if let viewModel = viewModel {
             chatView = ChatView(viewModel: viewModel)
         }
-    }
-    
-    func setStatusBarBackgroundColor(color: UIColor) {
-        guard let statusBar = UIApplication.shared.value(forKeyPath: "statusBarWindow.statusBar") as? UIView else { return }
-        statusBar.backgroundColor = color
     }
     
     func handleNewChat() {
@@ -157,10 +149,12 @@ class ChatController: UIViewController {
         if Reachability.isConnectedToNetwork() && offlineMessages.count > 0 {
             for message in offlineMessages {
                 
+                // synchronous because we want to upload the offline chats in the same order they were created.
                 DispatchQueue.global(qos: .userInitiated).sync {
                     let chatMessage = ChatMessage()
                     chatMessage.title = message.message
                     chatMessage.who = .me
+                    
                     CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: true, chatId: Int(message.chatId))
                     
                     DispatchQueue.main.async {

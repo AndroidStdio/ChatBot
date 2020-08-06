@@ -38,19 +38,9 @@ extension ChatSelectionView: UITableViewDataSource, UITableViewDelegate {
             controller.navigationController?.popViewController(animated: true)
         }
     }
-    
-    
 }
 
 class ChatSelectionView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     var selectionTableView = UITableView()
     weak var viewController: ChatSelectionController?
@@ -77,6 +67,7 @@ class ChatSelectionView: UIView {
     }
     
     private func setupConstraints() {
+        
         NSLayoutConstraint.activate([
             selectionTableView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
             selectionTableView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
@@ -84,5 +75,4 @@ class ChatSelectionView: UIView {
             selectionTableView.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
     }
-    
 }

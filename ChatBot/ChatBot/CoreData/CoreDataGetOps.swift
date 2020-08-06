@@ -2,8 +2,8 @@
 //  CoreDataGetOps.swift
 //  CoreDataPrep
 //
-//  Created by MCS on 12/3/19.
-//  Copyright © 2019 MCS. All rights reserved.
+//  Created by Vishwas Mukund on 8/5/20.
+//  Copyright © 2020 Vishwas Mukund. All rights reserved.
 //
 
 import Foundation

@@ -14,7 +14,6 @@ struct Constants {
     static let chatHostName: String = "www.personalityforge.com"
     static let chatPath: String = "/api/chat/"
     
-    
     static let fallbackResponse = "Sorry, some error has occoured. Try again..."
     static let emptyFieldTitle = " Warning"
     static let emptyFieldMessage = "The textfield cannot be empty"

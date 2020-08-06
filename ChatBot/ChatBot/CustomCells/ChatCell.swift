@@ -36,12 +36,6 @@ class ChatCell: UITableViewCell {
         return label
     } ()
     
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setupView()
