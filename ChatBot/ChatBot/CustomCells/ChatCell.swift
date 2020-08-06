@@ -15,7 +15,7 @@ class ChatCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
-        label.backgroundColor = .blue
+        label.backgroundColor = .wetAsphalt
         label.clipsToBounds = true
         label.numberOfLines = 0
         label.textColor = .white
@@ -28,10 +28,10 @@ class ChatCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
-        label.backgroundColor = .gray
+        label.backgroundColor = .concrete
         label.clipsToBounds = true
         label.numberOfLines = 0
-        label.textColor = .white
+        label.textColor = .black
         
         return label
     } ()
@@ -55,6 +55,7 @@ class ChatCell: UITableViewCell {
     }
     
     func setupView() {
+        backgroundColor = .cityLights
         contentView.addSubview(fromLabel)
         contentView.addSubview(toLabel)
         
