@@ -37,4 +37,9 @@ class CoreDataGetOps {
             $0.date?.compare($1.date ?? Date.distantFuture) == .orderedAscending
             }).last?.messageText ?? Constants.defaultConversationStarter
     }
+    
+    func getSavedMessages() -> [OfflineMessage] {
+        let fetchRequest: NSFetchRequest<OfflineMessage> = OfflineMessage.fetchRequest()
+        return coreDataManager.fetchObjects(fetchRequest: fetchRequest, context: context).sorted(by: {$0.date?.compare($1.date ?? Date.distantFuture) == .orderedAscending })
+    }
 }
