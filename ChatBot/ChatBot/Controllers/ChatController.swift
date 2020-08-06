@@ -31,7 +31,6 @@ import UIKit
         if let userText = chatView?.chatTextfield?.text, !(userText.isEmpty) {
             switch Reachability.isConnectedToNetwork() {
             case true:
-                chatView?.chatTextfield?.text = ""
                 let userMessage = ChatMessage()
                 userMessage.title = userText
                 userMessage.who = .me
@@ -54,15 +53,15 @@ import UIKit
                 noNetworkMessage.title = "Network not available, I will upload your messages once I am back online"
                 noNetworkMessage.who = .chatBot
                 
-                CoreDataSaveOps.shared.saveMessage(message: noNetworkMessage, dateTimeStamp: Date(), who: false)
+                CoreDataSaveOps.shared.saveMessage(message: noNetworkMessage, dateTimeStamp: Date(), who: false, chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
                 
-                CoreDataSaveOps.shared.saveOfflineMessage(message: userText)
+                CoreDataSaveOps.shared.saveOfflineMessage(message: userText, chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
                 
                 let savedMessaged = ChatMessage()
                 savedMessaged.title = "Saved !"
                 savedMessaged.who = .chatBot
                 
-                CoreDataSaveOps.shared.saveMessage(message: savedMessaged, dateTimeStamp: Date(), who: false)
+                CoreDataSaveOps.shared.saveMessage(message: savedMessaged, dateTimeStamp: Date(), who: false, chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
             }
             
         } else {
@@ -74,6 +73,7 @@ import UIKit
         
         chatView?.chatTableView?.reloadData()
         chatView?.chatTextfield?.resignFirstResponder()
+        chatView?.chatTextfield?.text = ""
     }
     
     func rightBarButtonTapped() {
@@ -164,15 +164,15 @@ class ChatController: UIViewController {
                 
                 DispatchQueue.global(qos: .userInitiated).sync {
                     let chatMessage = ChatMessage()
-                    chatMessage.title = message
+                    chatMessage.title = message.message
                     chatMessage.who = .me
-                    CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: true)
+                    CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: true, chatId: Int(message.chatId))
                     
                     DispatchQueue.main.async {
                         self.chatView?.chatTableView?.reloadData()
                     }
                     
-                    viewModel?.performChatOperation(userMessage: message, completion: {
+                    viewModel?.performChatOperation(userMessage: message.message ?? "Hello", chatId: Int(message.chatId), completion: {
                         [weak self]  result in
                         if result {
                             if let strongSelf = self {

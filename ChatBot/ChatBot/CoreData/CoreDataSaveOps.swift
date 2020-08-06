@@ -16,15 +16,17 @@ class CoreDataSaveOps {
     
     private init() {}
 
-    func saveMessage(message: ChatMessage, dateTimeStamp: Date, who: Bool) {
+    func saveMessage(message: ChatMessage, dateTimeStamp: Date, who: Bool, chatId: Int? = nil) {
         let messageManagedObject = MessageRecord(context: context)
         
         messageManagedObject.messageText = message.title
         messageManagedObject.date = dateTimeStamp
         messageManagedObject.me = who
-        messageManagedObject.chatId = Int32(UserDefaults.standard.integer(forKey: Constants.chatIdKey))
-        
-        
+        if let chatId = chatId {
+            messageManagedObject.chatId = Int32(chatId)
+        } else {
+            messageManagedObject.chatId = Int32(UserDefaults.standard.integer(forKey: Constants.chatIdKey))
+        }
         coreDataManager.saveContext(context: context)
     }
     
@@ -36,10 +38,11 @@ class CoreDataSaveOps {
         
     }
     
-    func saveOfflineMessage(message: String) {
+    func saveOfflineMessage(message: String, chatId: Int) {
         let offlineManagedObject = OfflineMessage(context: context)
         offlineManagedObject.date = Date()
         offlineManagedObject.message = message
+        offlineManagedObject.chatId = Int32(chatId)
         
         coreDataManager.saveContext(context: context)
     }

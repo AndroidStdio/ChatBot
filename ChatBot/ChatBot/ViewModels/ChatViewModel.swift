@@ -18,7 +18,7 @@ class ChatViewModel {
     }
     
     
-    func performChatOperation(userMessage: String, completion: @escaping (Bool) -> ()) {
+    func performChatOperation(userMessage: String, chatId: Int? = nil, completion: @escaping (Bool) -> ()) {
         /*
          http://www.personalityforge.com/api/chat/?apiKey=6nt5d1nJHkqbkphe&message=Hi&chatBotID=63906&externalID=chirag1 */
         
@@ -37,7 +37,13 @@ class ChatViewModel {
                         
                         strongSelf.messages.append(uiMessage)
                         
-                        CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false)
+                        if let chatId = chatId {
+                             CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false, chatId: chatId)
+                        } else {
+                            CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false)
+                        }
+                        
+                       
                         
                         completion(true)
                         
