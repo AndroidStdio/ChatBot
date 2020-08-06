@@ -15,10 +15,8 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     //   guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ChatCell else { return UITableViewCell() }
         
         let cell = ChatCell()
-        
         let messages = viewModel?.getAllMessages()
         
         switch messages?[indexPath.row].me {
@@ -40,12 +38,6 @@ extension ChatView: UITableViewDataSource, UITableViewDelegate {
         cell.selectionStyle = .none
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 50
- //   }
-    
-    
 }
 
 class ChatView: UIView {
