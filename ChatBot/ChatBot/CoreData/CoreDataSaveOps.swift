@@ -35,4 +35,12 @@ class CoreDataSaveOps {
         coreDataManager.saveContext(context: context)
         
     }
+    
+    func saveOfflineMessage(message: String) {
+        let offlineManagedObject = OfflineMessage(context: context)
+        offlineManagedObject.date = Date()
+        offlineManagedObject.message = message
+        
+        coreDataManager.saveContext(context: context)
+    }
 }

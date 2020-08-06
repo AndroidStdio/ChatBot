@@ -16,7 +16,7 @@ import UIKit
             }
         }
     }
-
+    
     func keyboardWillHide(notification: NSNotification) {
         if self.view.frame.origin.y != 0 {
             self.view.frame.origin.y = 0
@@ -28,34 +28,52 @@ import UIKit
     }
     
     func buttonTapped() {
-        
         if let userText = chatView?.chatTextfield?.text, !(userText.isEmpty) {
-            chatView?.chatTableView?.reloadData()
-            chatView?.chatTextfield?.resignFirstResponder()
-            chatView?.chatTextfield?.text = ""
-            let userMessage = ChatMessage()
-            userMessage.title = userText
-            userMessage.who = .me
-            viewModel?.messages.append(userMessage)
-            
-            CoreDataSaveOps.shared.saveMessage(message: userMessage, dateTimeStamp: Date(), who: true)
-            
-            viewModel?.performChatOperation(userMessage: userText, completion: {
-              [weak self]  result in
-                if result {
-                    if let strongSelf = self {
-                        DispatchQueue.main.async {
-                            strongSelf.chatView?.chatTableView?.reloadData()
+            switch Reachability.isConnectedToNetwork() {
+            case true:
+                chatView?.chatTextfield?.text = ""
+                let userMessage = ChatMessage()
+                userMessage.title = userText
+                userMessage.who = .me
+                viewModel?.messages.append(userMessage)
+                
+                CoreDataSaveOps.shared.saveMessage(message: userMessage, dateTimeStamp: Date(), who: true)
+                
+                viewModel?.performChatOperation(userMessage: userText, completion: {
+                    [weak self]  result in
+                    if result {
+                        if let strongSelf = self {
+                            DispatchQueue.main.async {
+                                strongSelf.chatView?.chatTableView?.reloadData()
+                            }
                         }
                     }
-                }
-            })
+                })
+            case false:
+                let noNetworkMessage = ChatMessage()
+                noNetworkMessage.title = "Network not available, I will upload your messages once I am back online"
+                noNetworkMessage.who = .chatBot
+                
+                CoreDataSaveOps.shared.saveMessage(message: noNetworkMessage, dateTimeStamp: Date(), who: false)
+                
+                CoreDataSaveOps.shared.saveOfflineMessage(message: userText)
+                
+                let savedMessaged = ChatMessage()
+                savedMessaged.title = "Saved !"
+                savedMessaged.who = .chatBot
+                
+                CoreDataSaveOps.shared.saveMessage(message: savedMessaged, dateTimeStamp: Date(), who: false)
+            }
+            
         } else {
             // alert here
             let alertController = UIAlertController(title: Constants.emptyFieldTitle, message: Constants.emptyFieldMessage, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(alertController, animated: true)
         }
+        
+        chatView?.chatTableView?.reloadData()
+        chatView?.chatTextfield?.resignFirstResponder()
     }
     
     func rightBarButtonTapped() {
@@ -75,9 +93,12 @@ class ChatController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Reachability.isConnectedToNetwork()
+        
         // Do any additional setup after loading the view.
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-    
+        
         handleNewChat()
         
         if CoreDataGetOps.shared.fetchChatList().isEmpty {
@@ -103,6 +124,10 @@ class ChatController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         handleNewChat()
+        
+        print(CoreDataGetOps.shared.getSavedMessages())
+        
+        uploadChatIfBackOnline()
         chatView?.chatTableView?.reloadData()
     }
     
@@ -128,6 +153,38 @@ class ChatController: UIViewController {
             CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: false)
             
             chatView?.chatTableView?.reloadData()
+        }
+    }
+    
+    func uploadChatIfBackOnline() {
+        let offlineMessages = CoreDataGetOps.shared.getSavedMessages()
+        
+        if Reachability.isConnectedToNetwork() && offlineMessages.count > 0 {
+            for message in offlineMessages {
+                
+                DispatchQueue.global(qos: .userInitiated).sync {
+                    let chatMessage = ChatMessage()
+                    chatMessage.title = message
+                    chatMessage.who = .me
+                    CoreDataSaveOps.shared.saveMessage(message: chatMessage, dateTimeStamp: Date(), who: true)
+                    
+                    DispatchQueue.main.async {
+                        self.chatView?.chatTableView?.reloadData()
+                    }
+                    
+                    viewModel?.performChatOperation(userMessage: message, completion: {
+                        [weak self]  result in
+                        if result {
+                            if let strongSelf = self {
+                                DispatchQueue.main.async {
+                                    strongSelf.chatView?.chatTableView?.reloadData()
+                                }
+                                CoreDataDeleteOps.shared.deleteOfflineMessages()
+                            }
+                        }
+                    })
+                }
+            }
         }
     }
 }
