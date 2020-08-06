@@ -22,8 +22,17 @@ class CoreDataSaveOps {
         messageManagedObject.messageText = message.title
         messageManagedObject.date = dateTimeStamp
         messageManagedObject.me = who
+        messageManagedObject.chatId = Int32(UserDefaults.standard.integer(forKey: Constants.chatIdKey))
         
         
         coreDataManager.saveContext(context: context)
+    }
+    
+    func saveChatToList(chatId: Int) {
+        let chatManagedObject = ChatList(context: context)
+        chatManagedObject.chatId = Int32(chatId)
+        
+        coreDataManager.saveContext(context: context)
+        
     }
 }

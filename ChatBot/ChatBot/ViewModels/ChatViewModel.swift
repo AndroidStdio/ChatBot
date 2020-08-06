@@ -14,7 +14,7 @@ class ChatViewModel {
     var messages = [ChatMessage]()
     
     func getAllMessages() -> [MessageRecord] {
-        return CoreDataGetOps.shared.getAllMessages()
+        return CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
     }
     
     

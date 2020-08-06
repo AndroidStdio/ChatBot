@@ -40,8 +40,6 @@ class ChatCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -53,7 +51,7 @@ class ChatCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
     }
-    
+        
     func setupView() {
         backgroundColor = .cityLights
         contentView.addSubview(fromLabel)

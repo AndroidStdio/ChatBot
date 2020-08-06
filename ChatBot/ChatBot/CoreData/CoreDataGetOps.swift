@@ -17,10 +17,24 @@ class CoreDataGetOps {
     
     private init() {}
     
-    func getAllMessages() -> [MessageRecord] {
+    func getAllMessages(chatId: Int) -> [MessageRecord] {
         let fetchRequest: NSFetchRequest<MessageRecord> = MessageRecord.fetchRequest()
-        return  coreDataManager.fetchObjects(fetchRequest: fetchRequest, context: context).sorted(by: {
+        return  coreDataManager.fetchObjects(fetchRequest: fetchRequest, context: context).filter {$0.chatId == Int32(chatId)}
+            .sorted(by: {
             $0.date?.compare($1.date ?? Date.distantFuture) == .orderedAscending
         })
+    }
+    
+    func fetchChatList() -> [ChatList] {
+        let fetchRequest: NSFetchRequest<ChatList> = ChatList.fetchRequest()
+        return  coreDataManager.fetchObjects(fetchRequest: fetchRequest, context: context).sorted {$0.chatId < $1.chatId}
+    }
+    
+    func getLastMessage(for chatId: Int) -> String {
+        let fetchRequest: NSFetchRequest<MessageRecord> = MessageRecord.fetchRequest()
+        return  coreDataManager.fetchObjects(fetchRequest: fetchRequest, context: context).filter {$0.chatId == Int32(chatId)}
+            .sorted(by: {
+            $0.date?.compare($1.date ?? Date.distantFuture) == .orderedAscending
+            }).last?.messageText ?? Constants.defaultConversationStarter
     }
 }
