@@ -38,6 +38,8 @@ import UIKit
             userMessage.who = .me
             viewModel?.messages.append(userMessage)
             
+            CoreDataSaveOps.shared.saveMessage(message: userMessage, dateTimeStamp: Date(), who: true)
+            
             viewModel?.performChatOperation(userMessage: userText, completion: {
               [weak self]  result in
                 if result {
@@ -77,6 +79,9 @@ class ChatController: UIViewController {
         
         self.title = "Chatbot"
         
+        navigationController?.navigationBar.barTintColor = .black
+        navigationController?.navigationBar.backgroundColor = .black
+        navigationController?.navigationBar.barStyle = .black
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
