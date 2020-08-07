@@ -137,7 +137,7 @@ class ChatController: UIViewController {
         
         chatView?.sendButton?.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(rightBarButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(rightBarButtonTapped))
     }
     
     override func viewDidAppear(_ animated: Bool) {
