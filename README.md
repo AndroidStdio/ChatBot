@@ -44,10 +44,6 @@
 - Local and network Error handling. 
 - App is optimized and validated with instruments for memory leaks, allocations, battery and coreData usage.
 
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic3.png =100x20)
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic2.png =100x20)
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic4.png =100x20)
-
 ### Steps to run
 - Just download project and run like normal. There are no dependecies.
 
@@ -63,3 +59,7 @@
 - Observe that your message is posted in the correct chat and the right response is recieved.
 - Observe the same in the second chat aswell. 
 - Reload the app and notice that it is not duplicating as offline message would be deleted as soon as they are sent to responded to. 
+
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic3.png)
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic2.png)
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic4.png)
