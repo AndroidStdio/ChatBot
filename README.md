@@ -44,10 +44,10 @@
 - Local and network Error handling. 
 - App is optimized and validated with instruments for memory leaks, allocations, battery and coreData usage.
 
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic1.png)
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic2.png)
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic3.png)
-![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic4.png)
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic1.png =250x)
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic2.png =250x)
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic3.png =250x)
+![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic4.png =250x)
 
 
 ### Steps to run
