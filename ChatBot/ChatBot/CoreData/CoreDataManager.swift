@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class CoreDataManager {
-    let dataModelName = "ChatBot"
+    let dataModelName = Constants.coreDataModelName
     static let shared = CoreDataManager()
     var mainContext: NSManagedObjectContext {
         return persistentContainer.viewContext

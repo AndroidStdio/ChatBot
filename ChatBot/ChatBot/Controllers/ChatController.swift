@@ -39,18 +39,41 @@ import UIKit
                 CoreDataSaveOps.shared.saveMessage(message: userMessage, dateTimeStamp: Date(), who: true)
                 
                 viewModel?.performChatOperation(userMessage: userText, completion: {
-                    [weak self]  result in
+                    [weak self]  result, error in
+                    
+                    
+                    
                     if result {
                         if let strongSelf = self {
                             DispatchQueue.main.async {
                                 strongSelf.chatView?.chatTableView?.reloadData()
                             }
                         }
+                        // If server has sent back error
+                    } else if let error = error {
+                        let alertController = UIAlertController(title: Constants.networkErrorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: Constants.cancelButtonTitle, style: .cancel, handler: nil))
+                        
+                        if let strongSelf = self {
+                            DispatchQueue.main.async {
+                                strongSelf.present(alertController, animated: true)
+                            }
+                        }
+                        // something unexpected happened
+                    } else {
+                        let alertController = UIAlertController(title: Constants.networkErrorAlertTitle, message: Constants.unknnownErrorMessage, preferredStyle: .alert)
+                        alertController.addAction(UIAlertAction(title: Constants.cancelButtonTitle, style: .cancel, handler: nil))
+                        
+                        if let strongSelf = self {
+                            DispatchQueue.main.async {
+                                strongSelf.present(alertController, animated: true)
+                            }
+                        }
                     }
                 })
             case false:
                 let noNetworkMessage = ChatMessage()
-                noNetworkMessage.title = "Network not available, I will upload your messages once I am back online"
+                noNetworkMessage.title = Constants.offlineChatbotResponse
                 noNetworkMessage.who = .chatBot
                 
                 CoreDataSaveOps.shared.saveMessage(message: noNetworkMessage, dateTimeStamp: Date(), who: false, chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
@@ -58,7 +81,7 @@ import UIKit
                 CoreDataSaveOps.shared.saveOfflineMessage(message: userText, chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
                 
                 let savedMessaged = ChatMessage()
-                savedMessaged.title = "Saved !"
+                savedMessaged.title = Constants.offlineSavedMessage
                 savedMessaged.who = .chatBot
                 
                 CoreDataSaveOps.shared.saveMessage(message: savedMessaged, dateTimeStamp: Date(), who: false, chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
@@ -67,7 +90,7 @@ import UIKit
         } else {
             // alert here
             let alertController = UIAlertController(title: Constants.emptyFieldTitle, message: Constants.emptyFieldMessage, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: Constants.cancelButtonTitle, style: .cancel, handler: nil))
             present(alertController, animated: true)
         }
         
@@ -102,7 +125,7 @@ class ChatController: UIViewController {
             CoreDataSaveOps.shared.saveChatToList(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
         }
         
-        self.title = "Chatbot"
+        self.title = Constants.viewControllerTitle
         
         navigationController?.navigationBar.barTintColor = .black
         navigationController?.navigationBar.backgroundColor = .black
@@ -161,14 +184,33 @@ class ChatController: UIViewController {
                         self.chatView?.chatTableView?.reloadData()
                     }
                     
-                    viewModel?.performChatOperation(userMessage: message.message ?? "Hello", chatId: Int(message.chatId), completion: {
-                        [weak self]  result in
+                    viewModel?.performChatOperation(userMessage: message.message ?? Constants.fallbackGreeting, chatId: Int(message.chatId), completion: {
+                        [weak self]  result, error  in
                         if result {
                             if let strongSelf = self {
                                 DispatchQueue.main.async {
                                     strongSelf.chatView?.chatTableView?.reloadData()
                                 }
                                 CoreDataDeleteOps.shared.deleteOfflineMessages()
+                            }
+                        } else if let error = error {
+                            let alertController = UIAlertController(title: Constants.networkErrorAlertTitle, message: error.localizedDescription, preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: Constants.cancelButtonTitle, style: .cancel, handler: nil))
+                            
+                            if let strongSelf = self {
+                                DispatchQueue.main.async {
+                                    strongSelf.present(alertController, animated: true)
+                                }
+                            }
+                            // something unexpected happened
+                        } else {
+                            let alertController = UIAlertController(title: Constants.networkErrorAlertTitle, message: Constants.unknnownErrorMessage, preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: Constants.cancelButtonTitle, style: .cancel, handler: nil))
+                            
+                            if let strongSelf = self {
+                                DispatchQueue.main.async {
+                                    strongSelf.present(alertController, animated: true)
+                                }
                             }
                         }
                     })
