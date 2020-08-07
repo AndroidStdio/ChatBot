@@ -17,7 +17,7 @@ class ChatViewModel {
         return CoreDataGetOps.shared.getAllMessages(chatId: UserDefaults.standard.integer(forKey: Constants.chatIdKey))
     }
     
-    func performChatOperation(userMessage: String, chatId: Int? = nil, completion: @escaping (Bool) -> ()) {
+    func performChatOperation(userMessage: String, chatId: Int? = nil, completion: @escaping (Bool, Error?) -> ()) {
         
         if let url = buildURL(endpoint: .chat, message: userMessage, chatbotId: "63906", externalID: "userName") {
             
@@ -40,12 +40,10 @@ class ChatViewModel {
                             CoreDataSaveOps.shared.saveMessage(message: uiMessage, dateTimeStamp: Date(), who: false)
                         }
             
-                        completion(true)
+                        completion(true, nil)
                     }
                 case .failure(let error):
-                    if let strongSelf = self {
-                        
-                    }
+                        completion(false, error)
                 }
             })
         }
