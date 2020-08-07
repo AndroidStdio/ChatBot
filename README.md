@@ -48,3 +48,20 @@
 ![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic2.png)
 ![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic3.png)
 ![](https://github.com/vishwas513/ChatBot/blob/master/screenshots/pic4.png)
+
+
+### Steps to run
+- Just download project and run like normal. There are no dependecies.
+
+### Steps to test offline functionality
+- Start a chat or proceed with default chat with network connection on.
+- Post a message and see the response. 
+- Create a new chat and repeat the same. 
+- Turn of network connection
+- Post a new message and observe that the chatbot says there is no network and also a message indicating your message has been stored locally. 
+- Go on the other chat and see the same. 
+- Its also possible to insert multiple message on the same chat with offline mode. 
+- Turn network back on and go to the chat selection screen and click a chat screen you which just typed messages in (Its triggered by viewDidAppear)
+- Observe that your message is posted in the correct chat and the right response is recieved.
+- Observe the same in the second chat aswell. 
+- Reload the app and notice that it is not duplicating as offline message would be deleted as soon as they are sent to responded to. 
